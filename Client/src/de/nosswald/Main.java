@@ -10,19 +10,27 @@ import java.net.Socket;
  */
 public class Main {
     public static void main(String[] args) {
-        try {
-            Socket socket = new Socket("localhost", 6666);
+        new Listener().run();
+        new Frame();
+    }
 
-            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    private static class Listener implements Runnable {
+        @Override
+        public void run() {
+            try {
+                Socket socket = new Socket("localhost", 6666);
 
-            while (true) {
-                String command = input.readLine();
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-                if (command.startsWith("MSG"))
-                    System.out.println(command.split("MSG ")[1]);
+                while (true) {
+                    String command = input.readLine();
+
+                    if (command.startsWith("MSG"))
+                        System.out.println(command.split("MSG ")[1]);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

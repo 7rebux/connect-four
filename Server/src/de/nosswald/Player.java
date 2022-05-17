@@ -43,7 +43,7 @@ public class Player extends Thread {
         try {
             while (true) {
                 String command = input.readLine();
-                System.out.println("command");
+                System.out.println(command);
             }
         } catch (IOException e) {
             e.printStackTrace();
