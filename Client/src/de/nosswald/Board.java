@@ -9,6 +9,11 @@ public final class Board {
      * R: Red
      * ' ': Empty
      */
+
+    public static final char Yellow = 'Y';
+    public static final char Red = 'R';
+    public static final char Empty = ' ';
+
     private final char[][] board = new char[][] {
             { ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
             { ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
@@ -17,8 +22,4 @@ public final class Board {
             { ' ', 'R', ' ', ' ', ' ', 'Y', ' ' },
             { 'Y', 'R', 'R', ' ', 'Y', 'Y', ' ' }
     };
-
-    public char[][] getBoard() {
-        return board;
-    }
 }

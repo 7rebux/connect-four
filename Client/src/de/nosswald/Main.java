@@ -10,26 +10,9 @@ import java.net.Socket;
  */
 public class Main {
     public static void main(String[] args) {
-        new GUI(new Board());
-    }
-
-    private static class Listener implements Runnable {
-        @Override
-        public void run() {
-            try {
-                Socket socket = new Socket("localhost", 6666);
-
-                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                while (true) {
-                    String command = input.readLine();
-
-                    if (command.startsWith("MSG"))
-                        System.out.println(command.split("MSG ")[1]);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        GameRules g = new GameRules(6, 7);
+        Board b = new Board();
+        Network n = new Network();
+        GUI gui = new GUI(g);
     }
 }
