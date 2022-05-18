@@ -61,12 +61,11 @@ public class Main {
         gui.addGUIListener(new GUIListener()
         {
             @Override
-            public void onTileClick(int row, int col)
+            public void onTileClick(int col)
             {
                 System.out.println("Sending Tile click");
                 n.sendMessage(new byte[] {
                         1, // ID
-                        (byte)row,
                         (byte)col
                 });
             }

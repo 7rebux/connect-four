@@ -81,6 +81,15 @@ public class Match {
         listeners.forEach(x -> x.onTileUpdate(row, col, finalId));
     }
 
+    private void dropTile(int col, Player player) {
+        int r = 0;
+        while ((r + 2) < this.board.length && this.board[r + 1][col] == null) {
+            r++;
+        }
+        System.out.println("Dropped to " + col + " " + r);
+        setTile(r, col, player);
+    }
+
     public Match(Player a, Player b) {
         this.currentPlayer = a;
 
@@ -90,13 +99,16 @@ public class Match {
         players[1] = b;
     }
 
-    public void tryPlaceTile(int row, int col, Player p)
+
+    public void tryPlaceTile(int col, Player p)
     {
-        if (isGameOver || currentPlayer != p)
+        if (isGameOver || currentPlayer != p || board[0][col] != null)
         {
             // nice try lol
             return;
         }
+
+        dropTile(col, p);
 
         if (isGameOver()) {
             listeners.forEach(x -> x.onPlayerWin(p.getId()));
@@ -107,6 +119,5 @@ public class Match {
             isGameOver = true;
         }
         currentPlayer = Arrays.stream(players).filter(x -> x != p).findFirst().orElseThrow(() -> new RuntimeException("FUCK"));
-        setTile(row, col, p);
     }
 }

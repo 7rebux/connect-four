@@ -26,20 +26,20 @@ public class Main {
             a.addListener(new PlayerListener()
             {
                 @Override
-                public void onPlaceTile(int row, int col)
+                public void onPlaceTile(int col)
                 {
                     System.out.println("Tried to place tile as a");
-                    match.tryPlaceTile(row, col, a);
+                    match.tryPlaceTile(col, a);
                 }
             });
 
             b.addListener(new PlayerListener()
             {
                 @Override
-                public void onPlaceTile(int row, int col)
+                public void onPlaceTile(int col)
                 {
                     System.out.println("Tried to place tile as b");
-                    match.tryPlaceTile(row, col, b);
+                    match.tryPlaceTile(col, b);
                 }
             });
             System.out.println("Game started");

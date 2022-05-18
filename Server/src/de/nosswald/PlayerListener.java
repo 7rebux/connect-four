@@ -6,5 +6,5 @@ package de.nosswald;
  */
 public interface PlayerListener
 {
-    void onPlaceTile(int row, int col);
+    void onPlaceTile(int col);
 }

@@ -42,7 +42,7 @@ public final class GUI extends JFrame {
 
                 System.out.printf("Pressed on [%d|%d] => [%d][%d]%n", e.getX(), e.getY(), col, row);
 
-                listeners.forEach(x -> x.onTileClick(row, col));
+                listeners.forEach(x -> x.onTileClick(col));
             }
         });
 

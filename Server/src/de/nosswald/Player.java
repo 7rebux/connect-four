@@ -35,7 +35,7 @@ public final class Player {
                     }
                     case 1: { // Select Tile
                         System.out.println("Sending Tile Update");
-                        listeners.forEach(x -> x.onPlaceTile(buffer.get(), buffer.get()));
+                        listeners.forEach(x -> x.onPlaceTile(buffer.get()));
                         break;
                     }
                     default: {

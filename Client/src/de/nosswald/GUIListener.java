@@ -6,5 +6,5 @@ package de.nosswald;
  */
 public interface GUIListener
 {
-    void onTileClick(int row, int col);
+    void onTileClick(int col);
 }
