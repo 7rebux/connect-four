@@ -96,6 +96,7 @@ public class Match {
             return;
         }
 
+        currentPlayer = Arrays.stream(players).filter(x -> x != p).findFirst().orElseThrow(() -> new RuntimeException("FUCK"));
         setTile(row, col, p);
     }
 }
