@@ -16,7 +16,7 @@ public class Main {
         Socket socket = new Socket();
         try
         {
-            socket.connect(new InetSocketAddress("localhost", 4317));
+            socket.connect(new InetSocketAddress("four-connect.kaij.tech", 4317));
         }
         catch(IOException e)
         {
