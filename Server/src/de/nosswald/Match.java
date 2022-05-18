@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * @author Nils Osswald, Kai Jellinghaus
+ * @author Nils Osswald
+ * @author Kai Jellinghaus
  */
 public class Match {
     private final Player[] players;

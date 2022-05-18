@@ -6,11 +6,12 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 
 /**
- * @author Nils Osswald, Kai Jellinghaus
+ * @author Nils Osswald
+ * @author Kai Jellinghaus
  */
 public class Main {
     public static void main(String[] args) {
-        GameRules g = new GameRules(6, 7);
+        GameRules g = new GameRules(7, 6);
 
         Socket socket = new Socket();
         try
@@ -44,8 +45,11 @@ public class Main {
                         break;
                     }
                     case 2: { // Win State
-                        boolean didIWin = buffer.get() == 1;
-                        throw new RuntimeException("TODO: IMPLEMENT WINNER SCREEN");
+                        byte s = buffer.get();
+                        char winner = s == 0 ? ' ' : (s == 1 ? Board.Yellow : Board.Red);
+
+                        new GameResultGUI(winner);
+                        break;
                     }
                     default: {
                         throw new RuntimeException("UNKNOWN ID " + id);
