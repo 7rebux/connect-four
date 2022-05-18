@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -12,10 +13,10 @@ import java.util.concurrent.Executors;
 
 public final class Network
 {
-    private final Thread thread;
     private final Socket socket;
     private final Queue<byte[]> messages = new ArrayBlockingQueue<>(100);
-    private final ExecutorService worker = Executors.newWorkStealingPool();
+    private final ExecutorService worker = Executors.newCachedThreadPool();
+    private final ArrayList<NetworkListener> listeners = new ArrayList<>();
 
     public Network() {
         socket = new Socket();
@@ -28,10 +29,17 @@ public final class Network
             throw new RuntimeException(e);
         }
 
-        thread = new Thread(this::Loop);
+        Thread t = new Thread(this::loop);
+        t.setDaemon(true);
+        t.setName("Network Loop");
+        t.start();
     }
 
-    private void Loop() {
+    public void addListener(NetworkListener listener) {
+        listeners.add(listener);
+    }
+
+    private void loop() {
         try
         {
             InputStream i = socket.getInputStream();
@@ -54,6 +62,7 @@ public final class Network
 
                 if (i.available() < nextLength && messages.isEmpty()) {
                     Thread.yield();
+                    continue;
                 }
 
                 if (!messages.isEmpty()) {
@@ -72,7 +81,7 @@ public final class Network
                     if (l != b.length) {
                         throw new Exception("Well fuck");
                     }
-                    worker.submit(() -> ProcessMessage(b));
+                    processMessage(b);
                     continue;
                 }
             }
@@ -83,7 +92,8 @@ public final class Network
         }
     }
 
-    private void ProcessMessage(byte[] message) {
+    private void processMessage(byte[] message) {
         System.out.println("Received Message");
+        listeners.forEach(x -> worker.execute(() -> x.processMessage(message)));
     }
 }
