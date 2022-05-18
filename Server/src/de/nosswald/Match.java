@@ -13,6 +13,7 @@ public class Match {
     private final Player[][] board;
     private Player currentPlayer;
     private final ArrayList<MatchListener> listeners = new ArrayList<>();
+    private boolean isGameOver;
 
     public void addMatchListener(MatchListener listener) {
         listeners.add(listener);
@@ -91,7 +92,7 @@ public class Match {
 
     public void tryPlaceTile(int row, int col, Player p)
     {
-        if (currentPlayer != p)
+        if (isGameOver || currentPlayer != p)
         {
             // nice try lol
             return;
@@ -99,9 +100,11 @@ public class Match {
 
         if (isGameOver()) {
             listeners.forEach(x -> x.onPlayerWin(p.getId()));
+            isGameOver = true;
         }
         else if (isBoardFull()) {
-            listeners.forEach(x -> x.onDraw());
+            listeners.forEach(MatchListener::onDraw);
+            isGameOver = true;
         }
         currentPlayer = Arrays.stream(players).filter(x -> x != p).findFirst().orElseThrow(() -> new RuntimeException("FUCK"));
         setTile(row, col, p);
