@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public final class GUI extends JFrame {
 
-    private char[][] board;
-    private GameRules rules;
-    private ArrayList<GUIListener> listeners = new ArrayList<>();
+    private final char[][] board;
+    private final GameRules rules;
+    private final ArrayList<GUIListener> listeners = new ArrayList<>();
 
     public void onTileChange(int row, int col, char newValue) {
         board[row][col] = newValue;

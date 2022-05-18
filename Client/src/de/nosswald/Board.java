@@ -14,12 +14,9 @@ public final class Board {
     public static final char Red = 'R';
     public static final char Empty = ' ';
 
-    private final char[][] board = new char[][] {
-            { ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            { ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            { ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-            { ' ', 'Y', ' ', ' ', ' ', ' ', ' ' },
-            { ' ', 'R', ' ', ' ', ' ', 'Y', ' ' },
-            { 'Y', 'R', 'R', ' ', 'Y', 'Y', ' ' }
-    };
+    private final char[][] board;
+
+    public Board(GameRules rules) {
+        board = new char[rules.getFieldWidth()][rules.getFieldHeight()];
+    }
 }
