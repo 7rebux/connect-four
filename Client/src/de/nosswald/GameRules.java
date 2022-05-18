@@ -1,6 +1,7 @@
 package de.nosswald;
 
 /**
+ * @author Nils Osswald
  * @author Kai Jellinghaus
  */
 public final class GameRules

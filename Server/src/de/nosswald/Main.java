@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 /**
- * @author Nils Osswald, Kai Jellinghaus
+ * @author Nils Osswald
+ * @author Kai Jellinghaus
  */
 public class Main {
     public static void main(String[] args) {

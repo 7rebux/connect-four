@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * @author Nils Osswald, Kai Jellinghaus
+ * @author Nils Osswald
+ * @author Kai Jellinghaus
  */
 public class Player {
     private final Network network;

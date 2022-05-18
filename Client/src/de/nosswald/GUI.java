@@ -7,7 +7,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- * @author Nils Osswald, Kai Jellinghaus
+ * @author Nils Osswald
+ * @author Kai Jellinghaus
  */
 public final class GUI extends JFrame {
 
