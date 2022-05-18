@@ -37,8 +37,8 @@ public final class GUI extends JFrame {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                final int row = (e.getY() - 80) / (-10 + GUI.this.getHeight() / rules.getFieldHeight());
-                final int col = (e.getX() - 50) / (-10 + GUI.this.getWidth() / rules.getFieldWidth());
+                final int row = e.getY() / (GUI.this.getHeight() / rules.getFieldHeight());
+                final int col = e.getX() / (GUI.this.getHeight() / rules.getFieldHeight());
 
                 System.out.printf("Pressed on [%d|%d] => [%d][%d]%n", e.getX(), e.getY(), col, row);
 
@@ -67,7 +67,7 @@ public final class GUI extends JFrame {
                 else if (value == Board.Red) g2d.setColor(Color.RED);
                 else g2d.setColor(Color.WHITE);
 
-                g2d.fillOval(50 + factor * row, 80 + factor * col, factor - 10, factor - 10);
+                g2d.fillOval(factor * row, factor * col, factor, factor);
             }
         }
     }
