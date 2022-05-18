@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -94,6 +96,7 @@ public final class Network
 
     private void processMessage(byte[] message) {
         System.out.println("Received Message");
-        listeners.forEach(x -> worker.execute(() -> x.processMessage(message)));
+        ByteBuffer b = ByteBuffer.wrap(message).asReadOnlyBuffer();
+        listeners.forEach(x -> worker.execute(() -> x.processMessage(b.duplicate())));
     }
 }
