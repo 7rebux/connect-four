@@ -8,10 +8,10 @@ import java.util.Objects;
  * @author Nils Osswald, Kai Jellinghaus
  */
 public class Match {
-    private Player[] players;
-    private Player[][] board;
+    private final Player[] players;
+    private final Player[][] board;
     private Player currentPlayer;
-    private ArrayList<MatchListener> listeners = new ArrayList<>();
+    private final ArrayList<MatchListener> listeners = new ArrayList<>();
 
     public void addMatchListener(MatchListener listener) {
         listeners.add(listener);
