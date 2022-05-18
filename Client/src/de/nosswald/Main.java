@@ -1,10 +1,5 @@
 package de.nosswald;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 /**
