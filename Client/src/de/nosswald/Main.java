@@ -10,8 +10,7 @@ import java.net.Socket;
  */
 public class Main {
     public static void main(String[] args) {
-        new Listener().run();
-        new Frame();
+        new GUI(new Board());
     }
 
     private static class Listener implements Runnable {

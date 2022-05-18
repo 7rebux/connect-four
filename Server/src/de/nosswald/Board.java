@@ -16,10 +16,6 @@ public final class Board {
         board = new Player[7][6];
     }
 
-    public boolean makeMove() {
-
-    }
-
     /**
      * @return true if the current player has won the game
      */
