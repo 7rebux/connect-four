@@ -37,10 +37,10 @@ public class Main {
                         throw new RuntimeException("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     }
                     case 1: { // Tile Update
-                        System.out.println("Received Tile update");
                         byte row = buffer.get();
                         byte col = buffer.get();
                         byte newState = buffer.get();
+                        System.out.println("Received Tile update " + newState);
                         gui.onTileChange(row, col, newState == 0 ? ' ' : (newState == 1 ? Board.Yellow : Board.Red));
                         break;
                     }

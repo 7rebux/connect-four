@@ -9,10 +9,10 @@ import java.util.Objects;
  * @author Kai Jellinghaus
  */
 public class Match {
-    private Player[] players;
-    private Player[][] board;
+    private final Player[] players;
+    private final Player[][] board;
     private Player currentPlayer;
-    private ArrayList<MatchListener> listeners = new ArrayList<>();
+    private final ArrayList<MatchListener> listeners = new ArrayList<>();
 
     public void addMatchListener(MatchListener listener) {
         listeners.add(listener);
@@ -97,6 +97,7 @@ public class Match {
             return;
         }
 
+        currentPlayer = Arrays.stream(players).filter(x -> x != p).findFirst().orElseThrow(() -> new RuntimeException("FUCK"));
         setTile(row, col, p);
     }
 }

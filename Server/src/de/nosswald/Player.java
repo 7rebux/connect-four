@@ -10,7 +10,7 @@ import java.util.Locale;
  * @author Nils Osswald
  * @author Kai Jellinghaus
  */
-public class Player {
+public final class Player {
     private final Network network;
     private final byte id;
 
