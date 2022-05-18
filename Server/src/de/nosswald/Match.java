@@ -96,6 +96,12 @@ public class Match {
             return;
         }
 
+        if (isGameOver()) {
+            listeners.forEach(x -> x.onPlayerWin(p.getId()));
+        }
+        else if (isBoardFull()) {
+            listeners.forEach(x -> x.onDraw());
+        }
         currentPlayer = Arrays.stream(players).filter(x -> x != p).findFirst().orElseThrow(() -> new RuntimeException("FUCK"));
         setTile(row, col, p);
     }

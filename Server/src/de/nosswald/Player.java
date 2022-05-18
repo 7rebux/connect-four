@@ -62,6 +62,22 @@ public final class Player {
                         1, (byte)row, (byte)col, newState
                 });
             }
+
+            @Override
+            public void onPlayerWin(byte winner)
+            {
+                network.sendMessage(new byte[] {
+                        2, winner
+                });
+            }
+
+            @Override
+            public void onDraw()
+            {
+                network.sendMessage(new byte[] {
+                        2, 0
+                });
+            }
         };
     }
 }
