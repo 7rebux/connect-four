@@ -2,8 +2,8 @@ package de.nosswald;
 
 public final class GameRules
 {
-    private int fieldWidth;
-    private int fieldHeight;
+    private final int fieldWidth;
+    private final int fieldHeight;
 
     public GameRules(int fieldWidth, int fieldHeight)
     {
