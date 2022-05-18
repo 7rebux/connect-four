@@ -35,5 +35,18 @@ public class Main {
                 }
             }
         });
+
+        gui.addGUIListener(new GUIListener()
+        {
+            @Override
+            public void onTileClick(int row, int col)
+            {
+                n.sendMessage(new byte[] {
+                        1, // ID
+                        (byte)row,
+                        (byte)col
+                });
+            }
+        });
     }
 }
