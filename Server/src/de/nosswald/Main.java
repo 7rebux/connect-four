@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 public class Main {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(6666);
+            ServerSocket serverSocket = new ServerSocket(4317);
             System.out.println("Server started on port: " + serverSocket.getLocalPort());
             System.out.println("Waiting for players..");
 
@@ -21,14 +21,6 @@ public class Main {
             Match match = new Match(a, b);
             match.start();
             System.out.println("Game started");
-
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                try {
-                    serverSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }));
         } catch (Exception e) {
             e.printStackTrace();
         }

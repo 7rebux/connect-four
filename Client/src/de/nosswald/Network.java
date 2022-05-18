@@ -40,6 +40,12 @@ public final class Network
         listeners.add(listener);
     }
 
+    public void sendMessage(byte[] message) {
+        if (!messages.offer(message)) {
+            throw new RuntimeException(":(");
+        }
+    }
+
     private void loop() {
         try
         {
