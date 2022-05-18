@@ -93,7 +93,7 @@ public class Match {
     public Match(Player a, Player b) {
         this.currentPlayer = a;
 
-        board = new Player[7][6];
+        board = new Player[6][7];
         players = new Player[2];
         players[0] = a;
         players[1] = b;
