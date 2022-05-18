@@ -15,7 +15,7 @@ public final class GameResultGUI extends JFrame {
         this.setResizable(false);
         this.setLayout(new FlowLayout());
 
-        JLabel label = new JLabel(winner == ' ' ? "The game ended in a tie!" : (winner == Board.Red ? "Red" : "Yellow") + "has won the game!");
+        JLabel label = new JLabel(winner == ' ' ? "The game ended in a tie!" : (winner == Board.Red ? "Red" : "Yellow") + " has won the game!");
         JButton button = new JButton("Exit");
 
         button.addActionListener(e -> {
