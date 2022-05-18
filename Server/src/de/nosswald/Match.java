@@ -72,7 +72,7 @@ public class Match {
     }
 
     private void setTile(int row, int col, Player player) {
-        this.board[row][col] = player; // TODO logic to drop from top instead.
+        this.board[row][col] = player;
         byte id = 0;
         if (player != null) {
             id = player.getId();
@@ -83,7 +83,7 @@ public class Match {
 
     private void dropTile(int col, Player player) {
         int r = 0;
-        while ((r + 2) < this.board.length && this.board[r + 1][col] == null) {
+        while ((r + 1) < this.board.length && this.board[r + 1][col] == null) {
             r++;
         }
         System.out.println("Dropped to " + col + " " + r);
