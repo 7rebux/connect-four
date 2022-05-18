@@ -1,52 +1,67 @@
 package de.nosswald;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * @author Nils Osswald
+ * @author Nils Osswald, Kai Jellinghaus
  */
-public class Player extends Thread {
-    private final Socket socket;
-    private final String color;
+public class Player {
+    private final Network network;
+    private final byte id;
 
-    private PrintWriter output;
-    private BufferedReader input;
+    private ArrayList<PlayerListener> listeners = new ArrayList<PlayerListener>();
 
-    public Player(Socket socket, String color) {
-        this.socket = socket;
-        this.color = color;
-
-        try {
-            output = new PrintWriter(socket.getOutputStream(), true);
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        output.println("MSG Connected");
-        output.println("MSG You are " + color.toLowerCase(Locale.ROOT));
+    public void addListener(PlayerListener listener) {
+        listeners.add(listener);
     }
 
-    @Override
-    public void run() {
-        output.println("MSG Game started");
+    public Player(Socket socket, byte id) {
+        this.network = new Network(socket);
+        this.id = id;
+        network.addListener(new NetworkListener()
+        {
+            @Override
+            public void processMessage(ByteBuffer buffer)
+            {
+                byte id = buffer.get();
+                switch (id) {
+                    case 0: {
+                        throw new RuntimeException("AAAAAAAAAAAAAAAAAA");
+                    }
+                    case 1: { // Select Tile
+                        System.out.println("Sending Tile Update");
+                        listeners.forEach(x -> x.onPlaceTile(buffer.get(), buffer.get()));
+                        break;
+                    }
+                    default: {
+                        throw new RuntimeException("UNKNOWN ID " + id);
+                    }
+                }
 
-        // RED has the first move
-        if (color == "RED") ;
-
-        // game loop
-        try {
-            while (true) {
-                String command = input.readLine();
-                System.out.println(command);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
+    }
+
+    public byte getId()
+    {
+        return id;
+    }
+
+    public MatchListener createMatchListener() {
+        return new MatchListener()
+        {
+            @Override
+            public void onTileUpdate(int row, int col, byte newState)
+            {
+                System.out.println("Received Tile update");
+                network.sendMessage(new byte[] {
+                        1, (byte)row, (byte)col, newState
+                });
+            }
+        };
     }
 }

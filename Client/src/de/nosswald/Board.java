@@ -1,7 +1,7 @@
 package de.nosswald;
 
 /**
- * @author Nils Osswald
+ * @author Nils Osswald, Kai Jellinghaus
  */
 public final class Board {
     public static final char Yellow = 'Y';

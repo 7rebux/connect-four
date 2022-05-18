@@ -1,5 +1,8 @@
 package de.nosswald;
 
+/**
+ * @author Kai Jellinghaus
+ */
 public final class GameRules
 {
     private final int fieldWidth;
