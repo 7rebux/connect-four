@@ -15,9 +15,13 @@ public final class GUI extends JFrame {
     private final char[][] board;
     private final GameRules rules;
     private final ArrayList<GUIListener> listeners = new ArrayList<>();
+    private char nextColor = 'Y';
 
     public void onTileChange(int row, int col, char newValue) {
         board[row][col] = newValue;
+        if (newValue == 'Y') nextColor = 'R';
+        else if (newValue == 'R') nextColor = 'Y';
+        else nextColor = ' ';
         repaint();
     }
 
@@ -63,17 +67,28 @@ public final class GUI extends JFrame {
         g2d.setColor(Color.GRAY);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(Resources.FontPageTitle);
+        g2d.drawString("To Move: ", (int)(factor * 0.5), (int)(factor * 0.75));
+        double textWidth = Resources.FontPageTitle.getStringBounds("To Move: ", g2d.getFontRenderContext()).getBounds2D().getWidth();
+        g2d.setColor(getDerivedColor(nextColor));
+        g2d.fillOval((int)((factor * 0.5) + textWidth), (int)(factor * 0.5), (int)(factor * 0.5), (int)(factor * 0.5));
+
         for (int row = 0; row < board[0].length; row++) {
             for (int col = 0; col < board.length; col++) {
                 char value = board[col][row];
 
-                if (value == Board.Yellow) g2d.setColor(Color.YELLOW);
-                else if (value == Board.Red) g2d.setColor(Color.RED);
-                else g2d.setColor(Color.WHITE);
+                g2d.setColor(getDerivedColor(value));
 
                 // +1 on each axis for the top left padding
                 g2d.fillOval(factor * (row + 1), factor * (col + 1), factor, factor);
             }
         }
+    }
+
+    private static Color getDerivedColor(char value) {
+        if (value == Board.Yellow) return Color.YELLOW;
+        else if (value == Board.Red) return Color.RED;
+        else return Color.WHITE;
     }
 }
