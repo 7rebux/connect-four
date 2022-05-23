@@ -11,4 +11,6 @@ public interface MatchListener
     void onPlayerWin(byte winner);
 
     void onDraw();
+
+    void onGameInit();
 }

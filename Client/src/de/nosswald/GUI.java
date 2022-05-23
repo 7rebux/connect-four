@@ -27,6 +27,7 @@ public final class GUI extends JFrame {
     }
 
     public void onGameInit(char selfColor) {
+        System.out.println("Game Initialized");
         this.selfColor = selfColor;
         repaint();
     }

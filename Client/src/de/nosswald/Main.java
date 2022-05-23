@@ -16,7 +16,7 @@ public class Main {
         Socket socket = new Socket();
         try
         {
-            socket.connect(new InetSocketAddress("four-connect.kaij.tech", 4317));
+            socket.connect(new InetSocketAddress("localhost", 4317));
         }
         catch(IOException e)
         {
@@ -49,6 +49,13 @@ public class Main {
                         char winner = s == 0 ? ' ' : (s == 1 ? Board.Yellow : Board.Red);
 
                         new GameResultGUI(winner);
+                        break;
+                    }
+                    case 3: { // Game Init
+                        byte s = buffer.get();
+                        char c = s == 0 ? ' ' : (s == 1 ? Board.Yellow : Board.Red);
+
+                        gui.onGameInit(c);
                         break;
                     }
                     default: {

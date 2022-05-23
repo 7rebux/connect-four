@@ -44,7 +44,7 @@ public class Main {
                         match.tryPlaceTile(col, b);
                     }
                 });
-                System.out.println("Game started");
+                match.startMatch();
             }
         } catch (Exception e) {
             e.printStackTrace();

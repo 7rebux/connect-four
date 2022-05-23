@@ -79,6 +79,14 @@ public final class Player {
                         2, 0
                 });
             }
+
+            @Override
+            public void onGameInit()
+            {
+                network.sendMessage(new byte[] {
+                        3, getId()
+                });
+            }
         };
     }
 }

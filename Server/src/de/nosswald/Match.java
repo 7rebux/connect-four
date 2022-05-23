@@ -99,6 +99,11 @@ public class Match {
         players[1] = b;
     }
 
+    public void startMatch() {
+        // First initialize red, so we don't accidentally ask Y to make a move before R knows this is possible.
+        listeners.forEach(MatchListener::onGameInit);
+        System.out.println("Game started");
+    }
 
     public void tryPlaceTile(int col, Player p)
     {

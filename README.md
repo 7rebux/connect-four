@@ -43,6 +43,13 @@ The data field looks like the following, depending on the ID:
 | ----- | ------ | --------------------------------------- |
 | state | 1 byte | 0 = Draw, 1 = Yellow Wins, 2 = Red Wins |
 
+
+#### Id = 3 | Game Init
+
+| Name       | Length | Notes                               |
+|------------| ------ |-------------------------------------|
+| ownedState | 1 byte | 1 = You are Yellow, 2 = You are Red |
+
 ### Client to Server
 
 #### Id = 1 | Column Select

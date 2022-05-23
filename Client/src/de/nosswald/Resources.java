@@ -1,4 +1,4 @@
-package tech.kaij.space_shooter;
+package de.nosswald;
 
 import java.awt.*;
 import java.io.InputStream;
