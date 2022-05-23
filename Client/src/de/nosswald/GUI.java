@@ -133,13 +133,13 @@ public final class GUI extends JFrame {
         g2d.setColor(getDerivedColor(selfColor));
         g2d.fillOval((int)((factor * 0.5) + textWidth2) + (int)((factor) + textWidth1), (int)(factor * 0.5), (int)(factor * 0.5), (int)(factor * 0.5));
 
-        for (int row = 0; row < board[0].length; row++) {
-            for (int col = 0; col < board.length; col++) {
-                char value = board[col][row];
+        for (int col = 0; col < board[0].length; col++) {
+            for (int row = 0; row < board.length; row++) {
+                char value = board[row][col];
 
                 Color c = getDerivedColor(value);
 
-                if (hoverRow != null && hoverCol != null && col == hoverRow && row == hoverCol) {
+                if (hoverRow != null && hoverCol != null && row == hoverRow && col == hoverCol) {
                     c = getDerivedColor(selfColor).darker();
                     System.out.println(c);
                 }
@@ -147,7 +147,7 @@ public final class GUI extends JFrame {
                 g2d.setColor(c);
 
                 // +1 on each axis for the top left padding
-                g2d.fillOval(factor * (row + 1), factor * (col + 1), factor, factor);
+                g2d.fillOval(factor * (col + 1), factor * (row + 1), factor, factor);
             }
         }
     }
