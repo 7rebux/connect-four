@@ -17,6 +17,7 @@ public final class GUI extends JFrame {
     private final ArrayList<GUIListener> listeners = new ArrayList<>();
     private char nextColor = 'Y';
     private char selfColor = ' ';
+    private Integer hoverCol = null;
 
     public void onTileChange(int row, int col, char newValue) {
         board[row][col] = newValue;
@@ -52,13 +53,39 @@ public final class GUI extends JFrame {
                 final int row = (e.getY() / factor) - 1;
                 final int col = (e.getX() / factor) - 1;
 
-                if (row < 0 || row > rules.getFieldWidth() || col < 0 || col > rules.getFieldHeight()) {
+                if (row < 0 || row > rules.getFieldHeight() || col < 0 || col > rules.getFieldWidth()) {
                     return;
                 }
 
                 System.out.printf("Pressed on [%d|%d] => [%d][%d]%n", e.getX(), e.getY(), col, row);
 
                 listeners.forEach(x -> x.onTileClick(col));
+            }
+        });
+
+        this.addMouseMotionListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseMoved(MouseEvent e)
+            {
+                final int factor = Math.min(getHeight() / (rules.getFieldHeight() + 2), getWidth() / (rules.getFieldWidth() + 2));
+                final int row = (e.getY() / factor) - 1;
+                final int col = (e.getX() / factor) - 1;
+
+                if (row < 0 || row > rules.getFieldHeight() || col < 0 || col > rules.getFieldWidth()) {
+                    if (hoverCol != null)
+                    {
+                        hoverCol = null;
+                        repaint();
+                    }
+                    return;
+                }
+
+                if (hoverCol == null || hoverCol != col) {
+                    System.out.println("Selected Col: " + col);
+                    hoverCol = col;
+                    repaint();
+                }
             }
         });
 
@@ -71,7 +98,7 @@ public final class GUI extends JFrame {
         // + 2 because we want to leave one empty row on each side
         final int factor = Math.min(getHeight() / (rules.getFieldHeight() + 2), getWidth() / (rules.getFieldWidth() + 2));
 
-        g2d.setColor(Color.GRAY);
+        g2d.setColor(new Color(0x22, 0x22, 0x22));
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         if (selfColor == ' ') {
@@ -80,6 +107,17 @@ public final class GUI extends JFrame {
             double textWidth = Resources.FontPageTitle.getStringBounds("Waiting for Game to start...", g2d.getFontRenderContext()).getBounds2D().getWidth();
             g2d.drawString("Waiting for Game to start...", (int)(this.getWidth() / 2 - textWidth / 2), this.getHeight() / 2);
             return;
+        }
+
+        Integer hoverRow = null;
+        if (hoverCol != null && hoverCol >= 0 && hoverCol < board[0].length) {
+            for (int row = board.length - 1; row >= 0; --row)  {
+                if (board[row][hoverCol] != Board.Red && board[row][hoverCol] != Board.Yellow) {
+                    hoverRow = row;
+                    System.out.println("Selected transparent indicator at " + hoverCol + " " + hoverRow);
+                    break;
+                }
+            }
         }
 
         g2d.setColor(Color.WHITE);
@@ -99,7 +137,14 @@ public final class GUI extends JFrame {
             for (int col = 0; col < board.length; col++) {
                 char value = board[col][row];
 
-                g2d.setColor(getDerivedColor(value));
+                Color c = getDerivedColor(value);
+
+                if (hoverRow != null && hoverCol != null && col == hoverRow && row == hoverCol) {
+                    c = getDerivedColor(selfColor).darker();
+                    System.out.println(c);
+                }
+
+                g2d.setColor(c);
 
                 // +1 on each axis for the top left padding
                 g2d.fillOval(factor * (row + 1), factor * (col + 1), factor, factor);
@@ -108,8 +153,8 @@ public final class GUI extends JFrame {
     }
 
     private static Color getDerivedColor(char value) {
-        if (value == Board.Yellow) return Color.YELLOW;
+        if (value == Board.Yellow) return new Color(245, 232, 47);
         else if (value == Board.Red) return Color.RED;
-        else return Color.WHITE;
+        else return new Color(0x44, 0x44, 0x44);
     }
 }
