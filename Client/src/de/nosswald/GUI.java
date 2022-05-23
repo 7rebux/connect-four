@@ -16,12 +16,18 @@ public final class GUI extends JFrame {
     private final GameRules rules;
     private final ArrayList<GUIListener> listeners = new ArrayList<>();
     private char nextColor = 'Y';
+    private char selfColor = ' ';
 
     public void onTileChange(int row, int col, char newValue) {
         board[row][col] = newValue;
         if (newValue == 'Y') nextColor = 'R';
         else if (newValue == 'R') nextColor = 'Y';
         else nextColor = ' ';
+        repaint();
+    }
+
+    public void onGameInit(char selfColor) {
+        this.selfColor = selfColor;
         repaint();
     }
 
@@ -67,12 +73,26 @@ public final class GUI extends JFrame {
         g2d.setColor(Color.GRAY);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+        if (selfColor == ' ') {
+            g2d.setColor(Color.WHITE);
+            g2d.setFont(Resources.FontPageTitle);
+            double textWidth = Resources.FontPageTitle.getStringBounds("Waiting for Game to start...", g2d.getFontRenderContext()).getBounds2D().getWidth();
+            g2d.drawString("Waiting for Game to start...", (int)(this.getWidth() / 2 - textWidth / 2), this.getHeight() / 2);
+            return;
+        }
+
         g2d.setColor(Color.WHITE);
         g2d.setFont(Resources.FontPageTitle);
         g2d.drawString("To Move: ", (int)(factor * 0.5), (int)(factor * 0.75));
-        double textWidth = Resources.FontPageTitle.getStringBounds("To Move: ", g2d.getFontRenderContext()).getBounds2D().getWidth();
+        double textWidth1 = Resources.FontPageTitle.getStringBounds("To Move: ", g2d.getFontRenderContext()).getBounds2D().getWidth();
         g2d.setColor(getDerivedColor(nextColor));
-        g2d.fillOval((int)((factor * 0.5) + textWidth), (int)(factor * 0.5), (int)(factor * 0.5), (int)(factor * 0.5));
+        g2d.fillOval((int)((factor * 0.5) + textWidth1), (int)(factor * 0.5), (int)(factor * 0.5), (int)(factor * 0.5));
+
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("You Are: ", (int)(factor * 0.5) + (int)((factor) + textWidth1), (int)(factor * 0.75));
+        double textWidth2 = Resources.FontPageTitle.getStringBounds("You Are: ", g2d.getFontRenderContext()).getBounds2D().getWidth();
+        g2d.setColor(getDerivedColor(selfColor));
+        g2d.fillOval((int)((factor * 0.5) + textWidth2) + (int)((factor) + textWidth1), (int)(factor * 0.5), (int)(factor * 0.5), (int)(factor * 0.5));
 
         for (int row = 0; row < board[0].length; row++) {
             for (int col = 0; col < board.length; col++) {
