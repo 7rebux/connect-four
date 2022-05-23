@@ -50,6 +50,10 @@ public final class Network
     private void loop() {
         try
         {
+            while (!socket.isConnected()) {
+                Thread.yield();
+            }
+
             InputStream i = socket.getInputStream();
             OutputStream o = socket.getOutputStream();
 

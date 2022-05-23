@@ -14,14 +14,6 @@ public class Main {
         GameRules g = new GameRules(7, 6);
 
         Socket socket = new Socket();
-        try
-        {
-            socket.connect(new InetSocketAddress("localhost", 4317));
-        }
-        catch(IOException e)
-        {
-            throw new RuntimeException(e);
-        }
 
         Network n = new Network(socket);
         GUI gui = new GUI(g);
@@ -77,5 +69,15 @@ public class Main {
                 });
             }
         });
+
+
+        try
+        {
+            socket.connect(new InetSocketAddress("localhost", 4317));
+        }
+        catch(IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
