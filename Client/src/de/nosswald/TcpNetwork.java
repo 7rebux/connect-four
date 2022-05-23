@@ -1,9 +1,7 @@
 package de.nosswald;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -16,14 +14,14 @@ import java.util.concurrent.Executors;
  * @author Nils Osswald
  * @author Kai Jellinghaus
  */
-public final class Network
+public final class TcpNetwork
 {
     private final Socket socket;
     private final Queue<byte[]> messages = new ArrayBlockingQueue<>(100);
     private final ExecutorService worker = Executors.newCachedThreadPool();
     private final ArrayList<NetworkListener> listeners = new ArrayList<>();
 
-    public Network(Socket socket) {
+    public TcpNetwork(Socket socket) {
         this.socket = socket;
 
         Thread t = new Thread(this::loop);

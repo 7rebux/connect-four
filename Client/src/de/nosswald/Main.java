@@ -15,7 +15,7 @@ public class Main {
 
         Socket socket = new Socket();
 
-        Network n = new Network(socket);
+        TcpNetwork n = new TcpNetwork(socket);
         GUI gui = new GUI(g);
 
         n.addListener(new NetworkListener()
